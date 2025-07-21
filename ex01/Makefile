@@ -1,5 +1,5 @@
 NAME=Phonebook
-FILES= src/main.cpp src/Contact.cpp src/Contact.hpp
+FILES= src/main.cpp src/Contact.cpp src/PhoneBook.cpp
 OBJS=$(FILES:src/%.cpp=objs/%.o)
 CXX= c++
 CFLAGS=-Wall -Wextra -Werror -std=c++98 
@@ -27,7 +27,7 @@ clean:
 	@echo -e "$(RED)Objectos eliminados$(RESET)"
 
 fclean: clean
-	@rm -f $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean clean all
 
