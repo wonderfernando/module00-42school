@@ -4,63 +4,107 @@
 #include "PhoneBook.hpp"
 int main(void)
 {
-    int exit = 3;
     PhoneBook phone;
     std::string linha;
     std::string data;
-
-    while (exit)
+ 
+     while (1)
     {
 
         std::cout << "INSIRA O COMANDO (ADD | SEARCH | EXIT): ";
-        std::getline(std::cin, linha);
+        if (!std::getline(std::cin, linha))
+        {
+            std::cout << std::endl;
+            break;
+        }
+
         if (!linha.compare("ADD"))
         {
             Contact c;
             std::string data;
 
             std::cout << "Introduza seu Primeiro nome: ";
-            std::getline(std::cin, data);
+            if (!std::getline(std::cin, data))
+            {
+                std::cout << std::endl;
+                break;
+            }
             while (data.empty())
             {
                 std::cout << "Primeiro nome não pode ser vazio. Tente novamente: ";
-                std::getline(std::cin, data);
+                if (!std::getline(std::cin, data))
+                {
+                    std::cout << std::endl;
+                    break;
+                }
             }
             c.setFirstName(data);
 
             std::cout << "Introduza seu Sobrenome: ";
-            std::getline(std::cin, data);
+            if (!std::getline(std::cin, data))
+            {
+                std::cout << std::endl;
+                break;
+            }
             while (data.empty())
             {
                 std::cout << "Sobrenome não pode ser vazio. Tente novamente: ";
-                std::getline(std::cin, data);
+                if (!std::getline(std::cin, data))
+                {
+                    std::cout << std::endl;
+                    break;
+                }
             }
             c.setLastName(data);
 
             std::cout << "Introduza seu Nickname: ";
-            std::getline(std::cin, data);
+            if (!std::getline(std::cin, data))
+            {
+                std::cout << std::endl;
+                break;
+            }
             while (data.empty())
             {
                 std::cout << "Nickname não pode ser vazio. Tente novamente: ";
-                std::getline(std::cin, data);
+                if (!std::getline(std::cin, data))
+                {
+                    std::cout << std::endl;
+                    break;
+                }
             }
             c.setNickname(data);
 
             std::cout << "Introduza seu Telefone: ";
-            std::getline(std::cin, data);
+            if (!std::getline(std::cin, data))
+            {
+                std::cout << std::endl;
+                break;
+            }
             while (data.empty())
             {
                 std::cout << "Telefone não pode ser vazio. Tente novamente: ";
-                std::getline(std::cin, data);
+                if (!std::getline(std::cin, data))
+                {
+                    std::cout << std::endl;
+                    break;
+                }
             }
             c.setPhoneNumber(data);
 
             std::cout << "Introduza seu Segredo obscuro: ";
-            std::getline(std::cin, data);
+            if (!std::getline(std::cin, data))
+            {
+                std::cout << std::endl;
+                break;
+            }
             while (data.empty())
             {
                 std::cout << "Segredo não pode ser vazio. Tente novamente: ";
-                std::getline(std::cin, data);
+                if (!std::getline(std::cin, data))
+                {
+                    std::cout << std::endl;
+                    break;
+                }
             }
             c.setSecret(data);
             phone.addContact(c);
@@ -68,7 +112,6 @@ int main(void)
         }
         if (!linha.compare("SEARCH"))
         {
-
             std::cout << "-------------------------------------------------" << std::endl;
             std::cout << std::setw(10) << std::right << "| Index |";
             std::cout << std::setw(10) << std::right << "First Name |";
@@ -79,7 +122,7 @@ int main(void)
             for (int i = 0; i < phone.getContactCount(); i++)
             {
                 std::string first_name = phone.getContact(i).getFirstName();
-                std::string last_name =  phone.getContact(i).getLastName();
+                std::string last_name = phone.getContact(i).getLastName();
                 std::string nick_name = phone.getContact(i).getNickname();
                 if (first_name.length() > 10)
                     first_name = first_name.substr(0, 9) + ".";
@@ -92,8 +135,10 @@ int main(void)
                 std::cout << std::setw(10) << std::right << last_name << "|";
                 std::cout << std::setw(10) << std::right << nick_name << "|" << std::endl;
                 std::cout << "-------------------------------------------------" << std::endl;
-
             }
         }
+        if (!linha.compare("EXIT"))
+            break;
     }
+    return (0);
 }

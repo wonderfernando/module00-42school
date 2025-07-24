@@ -1,25 +1,21 @@
 NAME=Phonebook
-FILES= src/main.cpp src/Contact.cpp src/PhoneBook.cpp
-OBJS=$(FILES:src/%.cpp=objs/%.o)
+INCLUDE=src/Contact.hpp src/PhoneBook.hpp
+OBJS=src/main.o src/Contact.o src/PhoneBook.o
 CXX= c++
 CFLAGS=-Wall -Wextra -Werror -std=c++98 
-INCLUDE=Contact.hpp
 GREEN = \033[32m
 YELLOW = \033[33m
 RESET = \033[0m
 RED = \033[31m
 
-all: $(NAME) $(INCLUDE)
+all: $(NAME) 
 	@echo Execute o Programa: ./Phonebook
 
 $(NAME): $(OBJS)
 	@$(CXX) $(CFLAGS) $(OBJS) -o Phonebook 
 	@echo -e "$(GREEN)[✓] Compilado: $(NAME)$(RESET)"
 
-objs/%.o: src/%.cpp
-	@mkdir -p objs 
-	@echo -e "$(YELLOW)[-]Compilando $<...$(RESET)"
-	@$(CXX) $(CFLAGS) -std=c++98 -c $< -o $@ 
+$(OBJS): $(INCLUDE)
 
 clean:
 	rm -f $(OBJS)
