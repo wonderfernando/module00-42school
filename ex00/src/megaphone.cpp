@@ -30,6 +30,8 @@ int main(int ac, char *av[])
                 std::cout << av[i][j];
             j++;
         }
+        if(av[i + 1] != NULL)
+                std::cout << " ";
         i++;
     }
     std::cout << std::endl;
