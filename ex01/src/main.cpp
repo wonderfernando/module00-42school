@@ -2,13 +2,49 @@
 #include <string>
 #include <iomanip>
 #include "PhoneBook.hpp"
+
+void print_contact(Contact contact, int index)
+{
+    std::cout << std::right << "Index: " << index << std::endl;;
+    std::cout << "First Name: " << contact.getFirstName() << std::endl;
+    std::cout << std::right << "Last Name: " << contact.getLastName() << std::endl;
+    std::cout << "Nick Name: " << contact.getNickname() << std::endl;
+    std::cout << "Phone Number: " << contact.getPhoneNumber() << std::endl;
+    std::cout << "darkest secret: " << contact.getNickname() << std::endl;
+
+}
+int is_valid(std::string str, int size)
+{
+    if (str[1] != '\0')
+    {
+        std::cout << "ARGUMENTO INVALIDO" << std::endl;
+        return (0);
+    }
+    if (!std::isdigit(str[0]))
+    {
+        std::cout << "ARGUMENTO INVALIDO" << std::endl;
+        return (0);
+    }
+    if (str[0] == '8')
+        return 1;
+    if ((str[0] >= '0' && str[0] <= '9'))
+    {
+        if ((str[0] - '0') > (size - 1))
+        {
+            std::cout << "index nao existe na lista" << std::endl;
+            return (0);
+        }
+        return 1;
+    }
+    return 0;
+}
 int main(void)
 {
     PhoneBook phone;
     std::string linha;
     std::string data;
- 
-     while (1)
+
+    while (1)
     {
 
         std::cout << "INSIRA O COMANDO (ADD | SEARCH | EXIT): ";
@@ -118,7 +154,6 @@ int main(void)
             std::cout << std::setw(10) << std::right << "Last Name |";
             std::cout << std::setw(10) << std::right << "Nick Name |" << std::endl;
             std::cout << "-------------------------------------------------" << std::endl;
-
             for (int i = 0; i < phone.getContactCount(); i++)
             {
                 std::string first_name = phone.getContact(i).getFirstName();
@@ -136,6 +171,26 @@ int main(void)
                 std::cout << std::setw(10) << std::right << nick_name << "|" << std::endl;
                 std::cout << "-------------------------------------------------" << std::endl;
             }
+            int count = phone.getContactCount();
+            std::cout << "INSIRA O INDEX (8 para sair): ";
+            if (!std::getline(std::cin, data))
+            {
+                std::cout << std::endl;
+                break;
+            }
+            while (data.empty() || !is_valid(data, count))
+            {
+                std::cout << "INSIRA O INDEX (8 para sair): ";
+                if (!std::getline(std::cin, data))
+                {
+                    std::cout << std::endl;
+                    break;
+                }
+            }
+            if (data[0] == '8')
+                continue;
+            print_contact(phone.getContact(data[0] - '0'), (data[0] - '0'));
+            continue ;
         }
         if (!linha.compare("EXIT"))
             break;
